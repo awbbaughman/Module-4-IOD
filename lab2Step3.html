@@ -1,0 +1,100 @@
+<!DOCTYPE html> <html> 
+<head> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<title>Module 4: Lab 2 (Part 3)</title>
+<style> 
+
+body { 
+font-family: Arial, Helvetica, sans-serif; 
+background-color : #e3f2fd; 
+} 
+
+.card { 
+padding: 10px; 
+}
+
+.card-title { 
+font-weight: 600; 
+font-size: 3em; 
+padding: 0 0 10px 0; 
+} 
+
+.card-description { font-weight: 400; 
+    font-size: 2em 
+} 
+
+.portfolio-items {display: flex;}
+.portfolio-item {padding: 2em}
+
+</style> 
+</head> 
+<body> 
+<template id="artist-template"> 
+    <div class="card">
+        <div class="card-body"> 
+        <div class="card-title"></div> 
+        <div class="portfolio-items"></div> 
+    </div> 
+</template> 
+
+<template id="portfolio-template"> 
+   <div class="portfolio-item">  
+<div class="portfolio-item-title"></div>
+<img class="portfolio-item-image" width="600">
+   </div>
+</template> 
+
+<h1>Module 4 Lab Exercise #2 - Part 3</h1>
+<div id="card-list"></div>
+
+
+<script>
+    const artist = {
+name: "Vincent Van Gogh",
+portfolio:[
+    {title: "portrait", url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436532/1671316/main-image"},
+    {title: "sky", url: "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg" },
+]
+}
+
+// other artists!
+
+const artists = [
+    {name: "Mark Rothko",
+    portfolio: [
+        {title:"No. 16", url:"https://www.metmuseum.org/art/collection/search/480911"},
+        {title:"No. 3", url:"http://www.metmuseum.org/art/collection/search/490220"}
+    ]},
+    {name: "Jackson Pollock",
+    porfolio: [
+        {title:"Autumn Rhythm (Number 30)", url:"http://www.metmuseum.org/art/collection/search/488978"}, // is there a reason that this, which is pulled from its open source api doc, (https://github.com/metmuseum/openaccess/blob/master/MetObjects.csv), doesn't match the api/collection link format for van Gogh in line 55 above? 
+        {title:"Pasiphaë", url:"https://www.metmuseum.org/art/collection/search/482518"}
+    ]}
+]
+    function addArtist(name, portfolio) {
+       /* clone the template */
+       const template = document.getElementById("artist-template").content.cloneNode(true);
+
+       /* populate the template */
+       template.querySelector('.card-title').innerText = name;
+      
+       portfolio.forEach(item => {
+        const itemTemplate = document.getElementById("portfolio-template") //I think something in these next few lines is why the webpage doesn't work. I followed along in the recording and I think I must be misisng something small.
+        itemTemplate.querySelector('.portfolio-item-title').innerText = item.title,
+        itemTemplate.querySelector('.portfolio-item-image').src = item.url,
+        itemTemplate.querySelector('.portfolio-item-image').src = item.title,
+        template.querySelector('.portfolio-items').appendChild(itemTemplate)
+       })
+
+      /* include the populated template into the page */
+       document.querySelector('#card-list').appendChild(template);
+} 
+   
+    addArtist(artist.name, artist.portfolio);
+    
+    artists.forEach(artist => addArtist(artist.name, artist.portfolio));
+
+</script>
+
+</body>
+</html> 
