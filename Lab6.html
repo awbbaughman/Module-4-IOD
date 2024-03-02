@@ -1,0 +1,48 @@
+<!-- I followed this pretty exactly with the recording from February 20, and my code doesn't have the same results as Luis' demo. What am I doing wrong? The fundamentals of it make sense to me, I'm just not sure what I'm missing. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <!-- why does template go above the <head> section? Or can it go anywhere above <body>?-->
+    <template id="card-template">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Item title</h5>
+        <p class="card-text">Item body</p>
+    </div>
+</div>
+
+        </div>
+    </template>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 6</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container p-3"> <!-- p = padding in rem -->
+      <h2>Lab 6: JSON Placeholder</h2>
+      <div id="post-list" class="row g-3 p-3"></div>
+        
+    <script>
+        fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        .then(response => response.json())
+        .then(json => json.forEach(item => addItem(item)))
+
+        function addItem(item) {
+            const template = document.getElementById("card-template").content.clone();
+            template.querySelector('.card-title').innterText = item.title;
+            template.querySelector('.card-text').innerText = item.body;
+            document.querySelector('#post-list').appendChild(template);
+        }
+        
+          
+        
+    </script>
+</body>
+
+
+</html>
